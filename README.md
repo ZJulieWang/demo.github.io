@@ -1,3 +1,4 @@
-# demo.github.io
-
-refer to web https://zjuliewang.github.io/demo.github.io/
+- 第一步：安装Node
+- 第二步：用vscode打开当前项目
+- 第三步：手动替换public/data.csv文件为真实数据
+- 第四步：运行start.sh
