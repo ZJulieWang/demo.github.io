@@ -557,23 +557,23 @@
             // 登録時 臨床画像: 全ファイルバンド内 → green、バンド中心
             {
                 date: computeDotDate([
-                    { name: 'CT.dcm', actualDate: addDays(registrationDate, -7) },
-                    { name: 'CT.pdf', actualDate: addDays(registrationDate, -7) },
-                    { name: 'MRI.dcm', actualDate: addDays(registrationDate, -7) },
-                    { name: 'MRI.pdf', actualDate: addDays(registrationDate, -7) },
-                    { name: '内視鏡検査.dcm', actualDate: addDays(registrationDate, -7) },
-                    { name: '内視鏡検査.pdf', actualDate: addDays(registrationDate, -7) }
+                    { name: 'CT画像', actualDate: addDays(registrationDate, -7) },
+                    { name: 'CTレポート', actualDate: addDays(registrationDate, -7) },
+                    { name: 'MRI画像', actualDate: addDays(registrationDate, -7) },
+                    { name: 'MRIレポート', actualDate: addDays(registrationDate, -7) },
+                    { name: '内視鏡検査画像', actualDate: addDays(registrationDate, -7) },
+                    { name: '内視鏡検査レポート', actualDate: addDays(registrationDate, -7) }
                 ], '登録時'),
                 type: '臨床画像', status: 'green', visit: '登録時 - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '登録時',
                 files: [
-                    { name: 'CT.dcm', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
-                    { name: 'CT.pdf', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
-                    { name: 'MRI.dcm', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
-                    { name: 'MRI.pdf', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
-                    { name: '内視鏡検査.dcm', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
-                    { name: '内視鏡検査.pdf', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' }
+                    { name: 'CT画像', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+                    { name: 'CTレポート', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+                    { name: 'MRI画像', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+                    { name: 'MRIレポート', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+                    { name: '内視鏡検査画像', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+                    { name: '内視鏡検査レポート', actualDate: addDays(registrationDate, -7), isDelayed: false, assignedTP: '登録時', reason: '予定通り' }
                 ]
             },
 
@@ -590,23 +590,23 @@
             // 欠損のみなので日付は取得できないためバンド中心に配置（redのまま）
             {
                 date: computeDotDate([
-                    { name: 'CT.dcm', actualDate: addDays(surgeryDate, W(24)) },
-                    { name: 'CT.pdf', actualDate: addDays(surgeryDate, W(24)) },
-                    { name: 'コンピュータX線撮影.dcm', actualDate: addDays(surgeryDate, W(24)) },
-                    { name: 'コンピュータX線撮影.pdf', actualDate: addDays(surgeryDate, W(24)) },
-                    { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(24)) },
-                    { name: '内視鏡検査.pdf', isMissing: true }
+                    { name: 'CT画像', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: 'CTレポート', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: 'コンピュータX線撮影画像', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: 'コンピュータX線撮影レポート', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: '内視鏡検査画像', actualDate: addDays(surgeryDate, W(24)) },
+                    // { name: '内視鏡検査レポート', isMissing: true }
                 ], '術後24w'),
-                type: '臨床画像', status: 'red', visit: '術後24w - 臨床画像',
+                type: '臨床画像', status: 'green', visit: '術後24w - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '術後24w',
                 files: [
-                    { name: 'CT.dcm', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
-                    { name: 'CT.pdf', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
-                    { name: 'コンピュータX線撮影.dcm', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
-                    { name: 'コンピュータX線撮影.pdf', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
-                    { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
-                    { name: '内視鏡検査.pdf', actualDate: '未取得', isMissing: true, assignedTP: '未割り当て', reason: 'ファイル欠落' }
+                    { name: 'CT画像', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
+                    { name: 'CTレポート', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
+                    { name: 'コンピュータX線撮影画像', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
+                    { name: 'コンピュータX線撮影レポート', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
+                    { name: '内視鏡検査画像', actualDate: addDays(surgeryDate, W(24)), isDelayed: false, assignedTP: '術後24w', reason: '予定通り' },
+                    // { name: '内視鏡検査レポート', actualDate: '未取得', isMissing: true, assignedTP: '未割り当て', reason: 'ファイル欠落' }
                 ]
             },
 
@@ -618,42 +618,54 @@
             // 術後48w 臨床画像【緑点】: バンド内のファイル (MRI, 内視鏡) → green、バンド中心
             {
                 date: computeDotDate([
-                    { name: 'MRI.dcm', actualDate: addDays(surgeryDate, W(48)) },
-                    { name: 'MRI.pdf', actualDate: addDays(surgeryDate, W(48)) },
-                    { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(48)) },
-                    { name: '内視鏡検査.pdf', actualDate: addDays(surgeryDate, W(48)) }
+                    { name: 'MRI画像', actualDate: addDays(surgeryDate, W(48)) },
+                    { name: 'MRIレポート', actualDate: addDays(surgeryDate, W(48)) },
+                    { name: '内視鏡検査画像', actualDate: addDays(surgeryDate, W(48)) },
+                    { name: '内視鏡検査レポート', actualDate: addDays(surgeryDate, W(48)) }
                 ], '術後48w'),
                 type: '臨床画像', status: 'green', visit: '術後48w - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '術後48w',
                 files: [
-                    { name: 'MRI.dcm', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
-                    { name: 'MRI.pdf', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
-                    { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
-                    { name: '内視鏡検査.pdf', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' }
+                    { name: 'MRI画像', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
+                    { name: 'MRIレポート', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
+                    { name: '内視鏡検査画像', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
+                    { name: '内視鏡検査レポート', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' }
                 ]
             },
 
-            // 術後48w 臨床画像【赤点】: バンド外のファイル (CT) → red、実際の日付で配置
+            // 臨床画像【赤点】: バンド外のファイル (CT) → red、実際の日付で配置
             {
                 date: addDays(surgeryDate, W(48) + 35),
-                type: '臨床画像', status: 'red', visit: '術後48w - 臨床画像',
+                type: '臨床画像', status: 'red', visit: '臨床画像',
                 requiresJudgment: true,
                 originalAssignedTP: '術後48w',
                 files: [
-                    { name: 'CT.dcm', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) },
-                    { name: 'CT.pdf', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) }
+                    { name: 'CT画像', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) },
+                    { name: 'CTレポート', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) }
+                ]
+            },
+
+            {
+                date: addDays(surgeryDate, W(48) + 40),
+                type: '臨床画像', status: 'red', visit: '臨床画像',
+                requiresJudgment: true,
+                originalAssignedTP: '術後48w',
+                files: [
+                    { name: 'MRI画像', actualDate: addDays(surgeryDate, W(48) + 40), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 40) },
+                    { name: 'MRIレポート', actualDate: addDays(surgeryDate, W(48) + 40), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 40) }
                 ]
             },
 
             // EDC Visit: 術後72w → バンド中心
             { date: (() => { const b = bands.find(b => b.name === '術後72w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後72w - コホートB：再発（18m）' },
 
-            // 術後72w 臨床画像: ファイルなし → red（データなし）
+            // 術後72w 臨床画像: ファイル未受信 → 点線グレー円（期待されたが受信されていない）
             {
                 date: addDays(surgeryDate, W(72)),
-                type: '臨床画像', status: 'red', visit: '術後72w - 臨床画像',
+                type: '臨床画像', status: 'missing_expected', visit: '術後72w - 臨床画像',
                 requiresJudgment: false,
+                isMissingExpected: true,
                 originalAssignedTP: '術後72w',
                 files: []
             },
@@ -683,14 +695,35 @@
                     { coord: [b.endDate, 1] }
                 ]);
                 markAreas.push([
-                    { coord: [b.startDate, 0], itemStyle: { color: 'transparent' }, label: { show: true, position: 'insideBottom', distance: 6, formatter: `{date|${b.targetDateStr}}`, rich: { date: { color: '#64748b', fontSize: 11, align: 'center', backgroundColor: '#eef3ff', padding: [2, 6], borderRadius: 4 } } } },
+                    { coord: [b.startDate, 0], itemStyle: { color: 'transparent' }, label: { show: true, position: 'insideBottom', distance: 6, formatter: `{date|${b.targetDateStr}}`, rich: { date: { color: (b.name === '登録時' || b.name === '手術時') ? '#1d4ed8' : '#64748b', fontSize: 11, align: 'center', backgroundColor: (b.name === '登録時' || b.name === '手術時') ? '#dbeafe' : '#eef3ff', padding: [2, 6], borderRadius: 4, fontWeight: (b.name === '登録時' || b.name === '手術時') ? 'bold' : 'normal', borderWidth: (b.name === '登録時' || b.name === '手術時') ? 1.5 : 0, borderColor: '#3b82f6' } } } },
                     { coord: [b.endDate, 1] }
                 ]);
             });
 
             const timelineMarkLines = [
                 [{ coord: [bands[0].targetDateStr, 1], lineStyle: { color: '#cbd5e1', width: 1.5, type: 'solid' } }, { coord: [bands[bands.length - 1].targetDateStr, 1] }],
-                [{ coord: [getTargetDateStr('手術時'), 0], lineStyle: { color: '#3b5bdb', width: 2, type: 'solid' } }, { coord: [getTargetDateStr('手術時'), 1] }]
+                [{
+                    coord: [getTargetDateStr('登録時'), 0],
+                    lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' },
+                    label: {
+                        show: true, position: 'start', distance: 8,
+                        formatter: `登録日`,
+                        color: '#1d4ed8', fontWeight: 'bold', fontSize: 11,
+                        backgroundColor: '#dbeafe', padding: [3, 6], borderRadius: 4,
+                        borderWidth: 1.5, borderColor: '#3b82f6'
+                    }
+                }, { coord: [getTargetDateStr('登録時'), 1] }],
+                [{
+                    coord: [getTargetDateStr('手術時'), 0],
+                    lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' },
+                    label: {
+                        show: true, position: 'start', distance: 8,
+                        formatter: `手術日`,
+                        color: '#1d4ed8', fontWeight: 'bold', fontSize: 11,
+                        backgroundColor: '#dbeafe', padding: [3, 6], borderRadius: 4,
+                        borderWidth: 1.5, borderColor: '#3b82f6'
+                    }
+                }, { coord: [getTargetDateStr('手術時'), 1] }]
             ];
 
             myChart.setOption({
@@ -706,6 +739,18 @@
                     {
                         type: 'scatter', yAxisIndex: 0, symbolSize: 15,
                         data: patientData.map((d, i) => {
+                            if (d.status === 'missing_expected') {
+                                return {
+                                    value: [d.date, d.type], idx: i,
+                                    symbol: 'circle', symbolSize: 18,
+                                    itemStyle: {
+                                        color: 'transparent',
+                                        borderColor: '#aaaaaa',
+                                        borderWidth: 2,
+                                        borderType: 'dashed'
+                                    }
+                                };
+                            }
                             let c = '#52c41a'; // green
                             if (d.status === 'red') c = '#ff4d4f';
                             if (d.status === 'yellow') c = '#faad14';
@@ -723,6 +768,9 @@
         myChart.on('click', (params) => {
             if (params.componentType === 'series' && params.seriesIndex === 0) {
                 const pd = patientData[params.data.idx];
+
+                // 未受信ファイルの点線円はクリックしても何もしない
+                if (pd.isMissingExpected) return;
 
                 if (pd.files) {
                     activeDataIndex = params.data.idx;
