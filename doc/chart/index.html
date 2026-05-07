@@ -623,7 +623,7 @@
                     { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(48)) },
                     { name: '内視鏡検査.pdf', actualDate: addDays(surgeryDate, W(48)) }
                 ], '術後48w'),
-                type: '臨床画像', status: 'green', visit: '術後48w - 臨床画像（適合）',
+                type: '臨床画像', status: 'green', visit: '術後48w - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '術後48w',
                 files: [
@@ -637,7 +637,7 @@
             // 術後48w 臨床画像【赤点】: バンド外のファイル (CT) → red、実際の日付で配置
             {
                 date: addDays(surgeryDate, W(48) + 35),
-                type: '臨床画像', status: 'red', visit: '術後48w - 臨床画像（要判定）',
+                type: '臨床画像', status: 'red', visit: '術後48w - 臨床画像',
                 requiresJudgment: true,
                 originalAssignedTP: '術後48w',
                 files: [
