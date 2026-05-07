@@ -401,11 +401,13 @@
     <div id="content-bar">
         <button class="back-btn" onclick="window.location.href='../index.html'">← 戻る</button>
         <span class="bar-label">表示中：</span>
-        <span class="filter-tag cohort-tag">M30010001</span>
+        <span class="filter-tag cohort-tag">M30011111</span>
         <span class="filter-tag patient-tag">56歳</span>
         <span class="filter-tag cohort-tag">男性</span>
         <span class="filter-tag patient-tag">登録日：2024-06-24</span>
+        <span class="filter-tag cohort-tag">コホートB1：Up-front Surgery を施行する場合</span>
         <span class="filter-tag patient-tag">結腸・直腸癌</span>
+        <span class="filter-tag patient-tag">生存</span>
         <div class="spacer"></div>
         <button class="btn-nav btn-cancel" id="nav-cancel">Cancel</button>
         <button class="btn-nav btn-save" id="nav-save">Save</button>
@@ -505,12 +507,64 @@
             <option value="その他">その他</option>
         `;
 
-        // 核心数据模型
-        let patientData = [
-            { date: addDays(registrationDate, -28), type: 'EDC Visit', status: 'green', visit: '登録時 - 症例登錄票' },
+        // ヘルパー: バンド内かどうかチェック
+        function isDateInBand(dateStr, band) {
+            if (!dateStr || dateStr === '未取得') return false;
+            const d = new Date(dateStr);
+            return d >= new Date(band.startDate) && d <= new Date(band.endDate);
+        }
 
+        // ヘルパー: ファイルグループの表示位置を計算する
+        // green → バンドの中心（全ファイルがバンド内）
+        // red   → 実際の日付（バンド外のファイルの最遅日、または欠損あり）
+        function computeDotDate(files, bandName) {
+            const band = bands.find(b => b.name === bandName);
+            if (!band) return getTargetDateStr(bandName);
+
+            const hasAnyFile = files.length > 0;
+            if (!hasAnyFile) return getTargetDateStr(bandName);
+
+            // バンド外または欠損ファイルを探す
+            const outsideOrMissing = files.filter(f => f.isMissing || !isDateInBand(f.actualDate, band));
+
+            if (outsideOrMissing.length === 0) {
+                // 全ファイルがバンド内 → バンド中心に配置
+                const mid = new Date((new Date(band.startDate).getTime() + new Date(band.endDate).getTime()) / 2);
+                return mid.toISOString().split('T')[0];
+            } else {
+                // バンド外または欠損 → 最も遅い実際の日付（バンド外ファイル）で配置
+                let latestOutside = null;
+                outsideOrMissing.forEach(f => {
+                    if (f.isMissing) return; // 欠損は日付なし
+                    const d = new Date(f.actualDate);
+                    if (!latestOutside || d > latestOutside) latestOutside = d;
+                });
+                if (latestOutside) return latestOutside.toISOString().split('T')[0];
+                // 欠損のみの場合もバンド中心に表示（ただしredのまま）
+                const mid = new Date((new Date(band.startDate).getTime() + new Date(band.endDate).getTime()) / 2);
+                return mid.toISOString().split('T')[0];
+            }
+        }
+
+        // 核心数据模型
+        // green dot: バンド中心 (全ファイルがprotocol準拠)
+        // red dot:   実際の日付 (バンド外のファイルがある → 人工判定が必要)
+        // yellow dot: timepoint右側 (判定済みファイル)
+        let patientData = [
+            // EDC Visit: 登録時 → バンド中心に配置（green）
+            { date: (() => { const b = bands.find(b => b.name === '登録時'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '登録時 - 症例登錄票' },
+
+            // 登録時 臨床画像: 全ファイルバンド内 → green、バンド中心
             {
-                date: addDays(registrationDate, -7), type: '臨床画像', status: 'green', visit: '登録時 - 臨床画像',
+                date: computeDotDate([
+                    { name: 'CT.dcm', actualDate: addDays(registrationDate, -7) },
+                    { name: 'CT.pdf', actualDate: addDays(registrationDate, -7) },
+                    { name: 'MRI.dcm', actualDate: addDays(registrationDate, -7) },
+                    { name: 'MRI.pdf', actualDate: addDays(registrationDate, -7) },
+                    { name: '内視鏡検査.dcm', actualDate: addDays(registrationDate, -7) },
+                    { name: '内視鏡検査.pdf', actualDate: addDays(registrationDate, -7) }
+                ], '登録時'),
+                type: '臨床画像', status: 'green', visit: '登録時 - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '登録時',
                 files: [
@@ -523,13 +577,27 @@
                 ]
             },
 
-            { date: addDays(surgeryDate, -14), type: 'EDC Visit', status: 'green', visit: '手術時 - コホートB：手術' },
-            { date: addDays(surgeryDate, W(4)), type: 'EDC Visit', status: 'green', visit: '術後4w - コホートB：再発（1m）' },
-            { date: addDays(surgeryDate, W(12)), type: 'EDC Visit', status: 'green', visit: '術後12w - コホートB：再発（3m）' },
-            { date: addDays(surgeryDate, W(24)), type: 'EDC Visit', status: 'green', visit: '術後24w - コホートB：再発（6m）' },
+            // EDC Visit: 手術時 → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '手術時'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '手術時 - コホートB：手術' },
+            // EDC Visit: 術後4w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後4w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後4w - コホートB：再発（1m）' },
+            // EDC Visit: 術後12w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後12w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後12w - コホートB：再発（3m）' },
+            // EDC Visit: 術後24w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後24w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後24w - コホートB：再発（6m）' },
 
+            // 術後24w 臨床画像: 欠損ファイルあり → red
+            // 欠損のみなので日付は取得できないためバンド中心に配置（redのまま）
             {
-                date: addDays(surgeryDate, W(24)), type: '臨床画像', status: 'red', visit: '術後24w - 臨床画像',
+                date: computeDotDate([
+                    { name: 'CT.dcm', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: 'CT.pdf', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: 'コンピュータX線撮影.dcm', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: 'コンピュータX線撮影.pdf', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(24)) },
+                    { name: '内視鏡検査.pdf', isMissing: true }
+                ], '術後24w'),
+                type: '臨床画像', status: 'red', visit: '術後24w - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '術後24w',
                 files: [
@@ -542,16 +610,23 @@
                 ]
             },
 
-            { date: addDays(surgeryDate, W(36)), type: 'EDC Visit', status: 'green', visit: '術後36w - コホートB：再発（9m）' },
-            { date: addDays(surgeryDate, W(48)), type: 'EDC Visit', status: 'green', visit: '術後48w - コホートB：再発（12m）' },
+            // EDC Visit: 術後36w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後36w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後36w - コホートB：再発（9m）' },
+            // EDC Visit: 術後48w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後48w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後48w - コホートB：再発（12m）' },
 
+            // 術後48w 臨床画像【緑点】: バンド内のファイル (MRI, 内視鏡) → green、バンド中心
             {
-                date: addDays(surgeryDate, W(48) + 15), type: '臨床画像', status: 'red', visit: '術後48w - 臨床画像',
-                requiresJudgment: true,
+                date: computeDotDate([
+                    { name: 'MRI.dcm', actualDate: addDays(surgeryDate, W(48)) },
+                    { name: 'MRI.pdf', actualDate: addDays(surgeryDate, W(48)) },
+                    { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(48)) },
+                    { name: '内視鏡検査.pdf', actualDate: addDays(surgeryDate, W(48)) }
+                ], '術後48w'),
+                type: '臨床画像', status: 'green', visit: '術後48w - 臨床画像（適合）',
+                requiresJudgment: false,
                 originalAssignedTP: '術後48w',
                 files: [
-                    { name: 'CT.dcm', actualDate: addDays(surgeryDate, W(48) + 15), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 15) },
-                    { name: 'CT.pdf', actualDate: addDays(surgeryDate, W(48) + 15), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 15) },
                     { name: 'MRI.dcm', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
                     { name: 'MRI.pdf', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
                     { name: '内視鏡検査.dcm', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
@@ -559,16 +634,32 @@
                 ]
             },
 
-            { date: addDays(surgeryDate, W(72)), type: 'EDC Visit', status: 'green', visit: '術後72w - コホートB：再発（18m）' },
-
+            // 術後48w 臨床画像【赤点】: バンド外のファイル (CT) → red、実際の日付で配置
             {
-                date: addDays(surgeryDate, W(72) + 8), type: '臨床画像', status: 'red', visit: '術後72w - 臨床画像',
+                date: addDays(surgeryDate, W(48) + 35),
+                type: '臨床画像', status: 'red', visit: '術後48w - 臨床画像（要判定）',
+                requiresJudgment: true,
+                originalAssignedTP: '術後48w',
+                files: [
+                    { name: 'CT.dcm', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) },
+                    { name: 'CT.pdf', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) }
+                ]
+            },
+
+            // EDC Visit: 術後72w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後72w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後72w - コホートB：再発（18m）' },
+
+            // 術後72w 臨床画像: ファイルなし → red（データなし）
+            {
+                date: addDays(surgeryDate, W(72)),
+                type: '臨床画像', status: 'red', visit: '術後72w - 臨床画像',
                 requiresJudgment: false,
                 originalAssignedTP: '術後72w',
                 files: []
             },
 
-            { date: addDays(surgeryDate, W(720)), type: 'EDC Visit', status: 'green', visit: '術後720w - 長期追跡調査' }
+            // EDC Visit: 術後720w → バンド中心
+            { date: (() => { const b = bands.find(b => b.name === '術後720w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後720w - 長期追跡調査' }
         ];
 
         let activeDataIndex = null;
@@ -780,35 +871,36 @@
                     }
                 });
 
-                // 2. 处理留在原点的数据
+                // 2. 留在原点のデータを更新
                 pd.files = remainingFiles;
 
                 if (hasRemainingNeedingJudgment) {
+                    // まだ判定待ちファイルが残る → redのまま、位置を再計算
                     pd.status = 'red';
                     pd.requiresJudgment = true;
+                    pd.date = computeDotDate(remainingFiles, pd.originalAssignedTP);
                 } else if (hasRemainingMissing) {
+                    // 欠損ファイルのみ残る → redのまま
                     pd.status = 'red';
                     pd.requiresJudgment = false;
                     pd.visit = pd.visit.replace('', '').trim();
+                    pd.date = computeDotDate(remainingFiles, pd.originalAssignedTP);
                 } else {
-                    // 没有异常了，完美归位变绿
-                    pd.status = 'green';
-                    pd.requiresJudgment = false;
-                    pd.visit = pd.visit.replace('', '').trim();
-
-                    if (pd.originalAssignedTP) {
-                        const originalBand = bands.find(b => b.name === pd.originalAssignedTP);
-                        if (originalBand) {
-                            pd.date = originalBand.targetDateStr;
-                        }
-                    }
+                    // 判定待ちファイルが全てなくなった → この赤点ノードを削除する
+                    // （合規ファイルの緑点は既に別ノードとして存在している）
+                    const selfIdx = patientData.indexOf(pd);
+                    if (selfIdx !== -1) patientData.splice(selfIdx, 1);
+                    activeDataIndex = null;
                 }
 
-                // 3. 🌟 新增逻辑：查找并合并到目标 Timepoint 的已有黄点中 🌟
+                // 3. 🌟 黄点: timepointのターゲット日付の右側に配置 🌟
                 for (const tpName in movedFilesMap) {
                     const targetBand = bands.find(b => b.name === tpName);
                     if (targetBand) {
-                        // 查找：是否已经有属于这个 Timepoint，且类型相同（臨床画像），状态为 yellow 的节点？
+                        // yellow dot の位置: targetDateStr の少し右 (endDate + 7日オフセット)
+                        const yellowDate = targetBand.endDate;
+
+                        // 既存の黄点を探す（同じtimepointと同じtype）
                         const existingYellowNode = patientData.find(d =>
                             d.status === 'yellow' &&
                             d.type === pd.type &&
@@ -816,13 +908,13 @@
                         );
 
                         if (existingYellowNode) {
-                            // 如果找到了，直接把文件合并进现有的数组里，不创建新点
+                            // 既存の黄点にファイルをマージ
                             existingYellowNode.files.push(...movedFilesMap[tpName]);
                         } else {
-                            // 如果没找到，才创建一个新的黄点
+                            // 新しい黄点を作成: timepointのターゲット日付の右側（endDate）
                             patientData.push({
-                                date: targetBand.endDate, // 吸附到新时间窗的右边界
-                                type: pd.type,            // '臨床画像'
+                                date: yellowDate,
+                                type: pd.type,
                                 status: 'yellow',
                                 visit: `${tpName} - 臨床画像`,
                                 requiresJudgment: false,
