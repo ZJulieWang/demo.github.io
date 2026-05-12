@@ -50,7 +50,8 @@
         body {
             height: 100%;
             overflow: hidden;
-            font-family: 'Noto Sans JP', 'Noto Sans', sans-serif
+            font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+            font-size: 15px;
         }
 
         body {
@@ -78,7 +79,7 @@
         }
 
         #top-header h3 {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--text-dark)
         }
@@ -100,10 +101,10 @@
         }
 
         .back-btn {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--text-mid);
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 6px;
             border: 1px solid var(--sidebar-border);
             background: #f8fafc;
@@ -118,7 +119,7 @@
         }
 
         .bar-label {
-            font-size: 11px;
+            font-size: 15px;
             color: var(--text-light);
             white-space: nowrap
         }
@@ -127,9 +128,9 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            font-size: 11px;
-            font-weight: 500;
-            padding: 3px 10px;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 5px 14px;
             border-radius: 12px;
             white-space: nowrap
         }
@@ -145,9 +146,9 @@
         }
 
         .btn-nav {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            padding: 5px 16px;
+            padding: 6px 18px;
             border-radius: 4px;
             transition: all 0.2s;
             white-space: nowrap
@@ -197,15 +198,15 @@
             border-radius: 10px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             z-index: 99999;
-            width: 680px;
+            width: 760px;
             pointer-events: auto;
-            font-size: 13px;
+            font-size: 17px;
             color: #333;
             transition: top 0.2s, left 0.2s;
         }
 
         .pop-title {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 12px;
             display: flex;
@@ -224,7 +225,7 @@
         .file-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 16px;
         }
 
         .file-table th,
@@ -251,7 +252,7 @@
             padding: 5px;
             border-radius: 4px;
             border: 1px solid #d9d9d9;
-            font-size: 11px;
+            font-size: 15px;
             background: #fff;
             cursor: pointer;
         }
@@ -263,9 +264,9 @@
 
         .status-badge {
             display: inline-block;
-            padding: 2px 6px;
+            padding: 2px 8px;
             border-radius: 4px;
-            font-size: 10px;
+            font-size: 14px;
             font-weight: 600;
             white-space: nowrap;
         }
@@ -307,7 +308,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 16px;
             transition: background 0.2s;
         }
 
@@ -323,14 +324,40 @@
         .close-btn {
             background: #f1f5f9;
             color: #64748b;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 15px;
             cursor: pointer;
         }
 
         .close-btn:hover {
             background: #e2e8f0;
+        }
+
+        #custom-popup button.exclude-btn {
+            width: 100%;
+            background: #f5f5f5;
+            color: #8c8c8c;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 15px;
+            border: 1px dashed #d9d9d9;
+            transition: all 0.2s;
+            margin-top: 6px;
+        }
+
+        #custom-popup button.exclude-btn:hover {
+            background: #fff1f0;
+            color: #cf1322;
+            border-color: #ffa39e;
+        }
+
+        .status-excluded {
+            background: #f5f5f5;
+            color: #8c8c8c;
+            border: 1px solid #d9d9d9;
         }
 
         /* CONFIRM MODAL */
@@ -389,6 +416,225 @@
             color: #64748b;
             border: 1px solid #e2e8f0
         }
+
+        /* ── STEP-BASED JUDGMENT UI ── */
+        .judgment-step {
+            display: none;
+        }
+
+        .judgment-step.active {
+            display: block;
+        }
+
+        /* Step 1: decision card */
+        .decision-banner {
+            background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .decision-banner p {
+            font-size: 15px;
+            color: #92400e;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .decision-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .decision-card {
+            border-radius: 8px;
+            padding: 14px 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.18s;
+            text-align: center;
+        }
+
+        .decision-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .decision-card.include {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .decision-card.include:hover {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+
+        .decision-card.exclude {
+            background: #fff1f0;
+            border-color: #ffa39e;
+        }
+
+        .decision-card.exclude:hover {
+            border-color: #ff4d4f;
+            background: #ffe0de;
+        }
+
+        .decision-card .card-icon {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+
+        .decision-card .card-label {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .decision-card.include .card-label {
+            color: #15803d;
+        }
+
+        .decision-card.exclude .card-label {
+            color: #b91c1c;
+        }
+
+        .decision-card .card-desc {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Step breadcrumb */
+        .step-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .step-breadcrumb .crumb-active {
+            color: #3b5bdb;
+            font-weight: 700;
+        }
+
+        .step-breadcrumb .crumb-sep {
+            color: #d1d5db;
+        }
+
+        .step-back-btn {
+            font-size: 14px;
+            color: #64748b;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 4px 12px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .step-back-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /* Step 2B: exclude reason */
+        .exclude-reason-box {
+            background: #fff8f8;
+            border: 1px solid #fca5a5;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .exclude-reason-box label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #7f1d1d;
+            margin-bottom: 8px;
+        }
+
+        .exclude-reason-box select,
+        .exclude-reason-box textarea {
+            width: 100%;
+            border: 1px solid #fca5a5;
+            border-radius: 5px;
+            padding: 7px 9px;
+            font-size: 15px;
+            background: #fff;
+            font-family: inherit;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+
+        .exclude-reason-box select:focus,
+        .exclude-reason-box textarea:focus {
+            border-color: #ef4444;
+            outline: none;
+        }
+
+        .exclude-reason-box textarea {
+            resize: vertical;
+            min-height: 58px;
+        }
+
+        .file-checklist {
+            margin-bottom: 10px;
+        }
+
+        .file-checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #7f1d1d;
+            margin-bottom: 6px;
+        }
+
+        .file-check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            padding: 5px 0;
+            border-bottom: 1px solid #fee2e2;
+            color: #374151;
+        }
+
+        .file-check-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-check-item input[type=checkbox] {
+            accent-color: #ef4444;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .confirm-exclude-btn {
+            width: 100%;
+            background: #dc2626;
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .confirm-exclude-btn:hover {
+            background: #b91c1c;
+        }
+
+        .confirm-exclude-btn:disabled {
+            background: #fca5a5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -416,29 +662,149 @@
     <div id="main-content">
         <div id="container"></div>
 
+        <!-- 期間凡例 + 判定履歴ボタン -->
+        <div id="chart-legend"
+            style="position:absolute;top:8px;right:12px;display:flex;align-items:center;gap:10px;z-index:50;pointer-events:none;">
+            <div style="display:flex;align-items:center;gap:5px;pointer-events:auto;">
+                <span
+                    style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(20,184,166,0.45);border:1px solid rgba(20,184,166,0.7);"></span>
+                <span style="font-size:13px;color:#0f766e;font-weight:600;">登録期間</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;pointer-events:auto;">
+                <span
+                    style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(245,158,11,0.40);border:1px solid rgba(245,158,11,0.7);"></span>
+                <span style="font-size:13px;color:#b45309;font-weight:600;">治療期間</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;pointer-events:auto;">
+                <span
+                    style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(99,102,241,0.35);border:1px solid rgba(99,102,241,0.6);"></span>
+                <span style="font-size:13px;color:#4338ca;font-weight:600;">フォローアップ期間</span>
+            </div>
+            <div style="width:1px;height:18px;background:#d1d5db;pointer-events:none;"></div>
+            <button id="audit-log-btn" onclick="showAuditLog()"
+                style="pointer-events:auto;font-size:13px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid #c4b5fd;background:#f5f3ff;color:#6d28d9;cursor:pointer;display:flex;align-items:center;gap:4px;"
+                onmouseover="this.style.background='#ede9fe'" onmouseout="this.style.background='#f5f3ff'">
+                📋 判定履歴 <span id="audit-count-badge"
+                    style="display:none;background:#6d28d9;color:#fff;border-radius:10px;padding:1px 6px;font-size:12px;min-width:18px;text-align:center;">0</span>
+            </button>
+        </div>
+
+        <!-- 判定履歴パネル -->
+        <div id="audit-panel"
+            style="display:none;position:absolute;top:40px;right:12px;width:560px;background:#fff;border:1px solid #c4b5fd;border-radius:10px;box-shadow:0 8px 24px rgba(109,40,217,0.12);z-index:9999;padding:16px;font-size:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                <span style="font-size:16px;font-weight:700;color:#6d28d9;">📋 判定履歴</span>
+                <button onclick="document.getElementById('audit-panel').style.display='none'"
+                    style="background:#f1f5f9;color:#64748b;padding:3px 8px;border-radius:4px;font-size:14px;cursor:pointer;border:none;">閉じる</button>
+            </div>
+            <!-- Filter bar -->
+            <div style="display:flex;gap:6px;margin-bottom:12px;">
+                <button onclick="setAuditFilter('all')" id="filter-all"
+                    style="font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;border:1.5px solid #c4b5fd;background:#6d28d9;color:#fff;cursor:pointer;">すべて</button>
+                <button onclick="setAuditFilter('include')" id="filter-include"
+                    style="font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;border:1.5px solid #86efac;background:#f0fdf4;color:#15803d;cursor:pointer;">✅
+                    研究納入</button>
+                <button onclick="setAuditFilter('exclude')" id="filter-exclude"
+                    style="font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;border:1.5px solid #fca5a5;background:#fff1f0;color:#b91c1c;cursor:pointer;">⛔
+                    研究対象外</button>
+            </div>
+            <div id="audit-panel-body" style="max-height:340px;overflow-y:auto;"></div>
+        </div>
+
         <div id="custom-popup">
+            <!-- Popup header -->
             <div class="pop-title">
                 <span id="pop-header-text">判定</span>
                 <button class="close-btn" onclick="closePopup()">閉じる</button>
             </div>
 
-            <div class="table-container">
-                <table class="file-table" id="pop-table">
-                    <thead>
-                        <tr>
-                            <th width="24%">検査ファイル</th>
-                            <th width="20%">実施日</th>
-                            <th width="24%">判定タイムポイント</th>
-                            <th width="32%">判定理由</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pop-table-body">
-                        <!-- JS动态注入 -->
-                    </tbody>
-                </table>
+            <!-- STEP 1: file preview + decision -->
+            <div class="judgment-step active" id="step-1">
+                <div class="table-container">
+                    <table class="file-table" id="pop-table">
+                        <thead>
+                            <tr>
+                                <th width="30%">検査ファイル</th>
+                                <th width="22%">実施日</th>
+                                <th width="18%">ステータス</th>
+                                <th width="30%">現在のTP / 備考</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pop-table-body"></tbody>
+                    </table>
+                </div>
+                <div id="decision-area" style="display:none;">
+                    <div class="decision-banner">
+                        <p>⚠️ このデータには<strong>判定が必要なファイル</strong>が含まれています。<br>研究への納入可否をまずご判断ください。</p>
+                        <div class="decision-cards">
+                            <div class="decision-card include" onclick="goStep2Include()">
+                                <div class="card-icon">✅</div>
+                                <div class="card-label">研究に納入する</div>
+                                <div class="card-desc">タイムポイントと理由を<br>指定して確定します</div>
+                            </div>
+                            <div class="decision-card exclude" onclick="goStep2Exclude()">
+                                <div class="card-icon">⛔</div>
+                                <div class="card-label">研究対象外とする</div>
+                                <div class="card-desc">理由を記録してチャートから<br>削除します</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <button class="submit-btn" id="pop-btn" style="display:none;">判定を確定して移動</button>
+            <!-- STEP 2A: include — assign timepoint -->
+            <div class="judgment-step" id="step-2a">
+                <div class="step-breadcrumb">
+                    <span>判定</span><span class="crumb-sep">›</span>
+                    <span class="crumb-active">✅ 研究納入 — タイムポイント指定</span>
+                    <button class="step-back-btn" onclick="goBack()">← 戻る</button>
+                </div>
+                <div class="table-container">
+                    <table class="file-table" id="pop-table-assign">
+                        <thead>
+                            <tr>
+                                <th width="24%">検査ファイル</th>
+                                <th width="20%">実施日</th>
+                                <th width="26%">判定タイムポイント</th>
+                                <th width="30%">判定理由</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pop-table-assign-body"></tbody>
+                    </table>
+                </div>
+                <button class="submit-btn" id="pop-btn" disabled onclick="confirmInclude()">✅ 判定を確定して移動</button>
+            </div>
+
+            <!-- STEP 2B: exclude — record reason -->
+            <div class="judgment-step" id="step-2b">
+                <div class="step-breadcrumb">
+                    <span>判定</span><span class="crumb-sep">›</span>
+                    <span class="crumb-active" style="color:#dc2626;">⛔ 研究対象外 — 理由入力</span>
+                    <button class="step-back-btn" onclick="goBack()">← 戻る</button>
+                </div>
+                <div class="exclude-reason-box">
+                    <label>除外理由（必須）</label>
+                    <select id="excl-reason-select" onchange="checkExcludeForm()">
+                        <option value="">-- 除外理由を選択してください --</option>
+                        <option value="プロトコル逸脱">プロトコル逸脱</option>
+                        <option value="データ品質不足">データ品質不足</option>
+                        <option value="患者同意撤回">患者同意撤回</option>
+                        <option value="重複データ">重複データ</option>
+                        <option value="収集期間外">収集期間外（ウィンドウ外）</option>
+                        <option value="検査手順違反">検査手順違反</option>
+                        <option value="その他">その他</option>
+                    </select>
+                    <label>補足コメント（任意）</label>
+                    <textarea id="excl-comment" placeholder="必要に応じて詳細を記入してください..."
+                        oninput="checkExcludeForm()"></textarea>
+                    <div class="file-checklist">
+                        <div class="file-checklist-title">除外対象ファイル（確認）</div>
+                        <div id="excl-file-list"></div>
+                    </div>
+                </div>
+                <button class="confirm-exclude-btn" id="confirm-excl-btn" disabled onclick="confirmExclude()">⛔
+                    研究対象外として削除する</button>
+            </div>
         </div>
     </div>
 
@@ -475,29 +841,51 @@
         }
         const W = w => w * 7;
 
+        // 再発日 = 術後72w
+        const recurrenceDate = new Date(addDays(surgeryDate, W(72)));
+        // 第一次再発後の手術日 = 再発日の約7w後（2025-12-31相当）
+        const surgery2Date = new Date(addDays(recurrenceDate, W(7)));
+
         function getTargetDateStr(name) {
             if (name === '登録時') return '2024-06-24';
             if (name === '手術時') return '2024-07-25';
+            if (name === '再発時') return recurrenceDate.toISOString().split('T')[0];
+            if (name === '手術時②') return surgery2Date.toISOString().split('T')[0];
+            if (name === '術後4w②') return addDays(surgery2Date, W(4));
             const match = name.match(/術後(\d+)w/);
             if (match) return addDays('2024-07-25', parseInt(match[1], 10) * 7);
             return '';
         }
 
+        // Period colors: registration=teal, surgery=amber, post-op/followup=lavender
+        const COLOR_REGISTRATION = 'rgba(20,184,166,0.13)';
+        const COLOR_SURGERY = 'rgba(245,158,11,0.13)';
+        const COLOR_POSTOP = 'rgba(99,102,241,0.11)';
+
         const bands = [
-            { name: '登録時', window: '[-8w, +0w]', startDate: addDays(registrationDate, -W(8)), endDate: addDays(registrationDate, 0), color: 'rgba(189,195,199,0.22)' },
-            { name: '手術時', window: '[-4w, +0w]', startDate: addDays(surgeryDate, -W(4)), endDate: addDays(surgeryDate, 0), color: 'rgba(52,152,219,0.15)' },
-            { name: '術後4w', window: '[-1w, +1w]', startDate: addDays(surgeryDate, W(3)), endDate: addDays(surgeryDate, W(5)), color: 'rgba(155,89,182,0.15)' },
-            { name: '術後12w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(10)), endDate: addDays(surgeryDate, W(14)), color: 'rgba(46,204,113,0.15)' },
-            { name: '術後24w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(22)), endDate: addDays(surgeryDate, W(26)), color: 'rgba(230,126,34,0.15)' },
-            { name: '術後36w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(34)), endDate: addDays(surgeryDate, W(38)), color: 'rgba(241,196,15,0.15)' },
-            { name: '術後48w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(46)), endDate: addDays(surgeryDate, W(50)), color: 'rgba(231,76,60,0.15)' },
-            { name: '術後72w', window: '[-4w, +4w]', startDate: addDays(surgeryDate, W(70)), endDate: addDays(surgeryDate, W(74)), color: 'rgba(52,152,219,0.15)' },
-            { name: '術後720w', window: '[-8w, +8w]', startDate: addDays(surgeryDate, W(712)), endDate: addDays(surgeryDate, W(728)), color: 'rgba(155,89,182,0.15)' }
+            { name: '登録時', window: '[-8w, +0w]', startDate: addDays(registrationDate, -W(8)), endDate: addDays(registrationDate, 0), color: COLOR_REGISTRATION },
+            { name: '手術時', window: '[-4w, +0w]', startDate: addDays(surgeryDate, -W(4)), endDate: addDays(surgeryDate, 0), color: COLOR_SURGERY },
+            { name: '術後4w', window: '[-1w, +1w]', startDate: addDays(surgeryDate, W(3)), endDate: addDays(surgeryDate, W(5)), color: COLOR_POSTOP },
+            { name: '術後12w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(10)), endDate: addDays(surgeryDate, W(14)), color: COLOR_POSTOP },
+            { name: '術後24w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(22)), endDate: addDays(surgeryDate, W(26)), color: COLOR_POSTOP },
+            { name: '術後36w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(34)), endDate: addDays(surgeryDate, W(38)), color: COLOR_POSTOP },
+            { name: '術後48w', window: '[-2w, +2w]', startDate: addDays(surgeryDate, W(46)), endDate: addDays(surgeryDate, W(50)), color: COLOR_POSTOP },
+            // ── 2025-11-11 追加: 再発時（フォローアップ期間として扱う）──
+            { name: '再発時', window: '[-4w, +0w]', startDate: addDays(recurrenceDate, -W(4)), endDate: addDays(recurrenceDate, 0), color: COLOR_POSTOP },
+            // ── 2025-12-31 追加: 第一次再発後の手術時（基準日: 第一次再発後手術日）──
+            { name: '手術時②', displayName: '手術時', window: '[-4w, +0w]', startDate: addDays(surgery2Date, -W(4)), endDate: addDays(surgery2Date, 0), color: COLOR_SURGERY },
+            // ── 2026-01-31 追加: 第一次再発後の術後4w ──
+            { name: '術後4w②', displayName: '術後4w', window: '[-1w, +1w]', startDate: addDays(surgery2Date, W(3)), endDate: addDays(surgery2Date, W(5)), color: COLOR_POSTOP },
+            { name: '術後720w', window: '[-8w, +8w]', startDate: addDays(surgeryDate, W(712)), endDate: addDays(surgeryDate, W(728)), color: COLOR_POSTOP }
         ];
 
         bands.forEach(b => { b.targetDateStr = getTargetDateStr(b.name); });
 
-        const tpOptionsHTML = bands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+        const tpLabelMap = {
+            '手術時②': '手術時（第一次再発後）',
+            '術後4w②': '術後4w（第一次再発後）'
+        };
+        const tpOptionsHTML = bands.map(b => `<option value="${b.name}">${tpLabelMap[b.name] || b.name}</option>`).join('');
         const reasonOptionsHTML = `
             <option value="">-- 理由を選択 --</option>
             <option value="許容範囲内の遅延">許容範囲内の遅延</option>
@@ -638,8 +1026,7 @@
             {
                 date: addDays(surgeryDate, W(48) + 35),
                 type: '臨床画像', status: 'red', visit: '臨床画像',
-                requiresJudgment: true,
-                originalAssignedTP: '術後48w',
+                requiresJudgment: true, originalAssignedTP: '術後48w',
                 files: [
                     { name: 'CT画像', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) },
                     { name: 'CTレポート', actualDate: addDays(surgeryDate, W(48) + 35), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 35) }
@@ -649,30 +1036,357 @@
             {
                 date: addDays(surgeryDate, W(48) + 40),
                 type: '臨床画像', status: 'red', visit: '臨床画像',
-                requiresJudgment: true,
-                originalAssignedTP: '術後48w',
+                requiresJudgment: true, originalAssignedTP: '術後48w',
                 files: [
                     { name: 'MRI画像', actualDate: addDays(surgeryDate, W(48) + 40), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 40) },
                     { name: 'MRIレポート', actualDate: addDays(surgeryDate, W(48) + 40), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 40) }
                 ]
             },
 
-            // EDC Visit: 術後72w → バンド中心
-            { date: (() => { const b = bands.find(b => b.name === '術後72w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後72w - コホートB：再発（18m）' },
+            // ══════════════════════════════════════════════════════
+            //  2025-11-11 追加: 再発時 タイムポイント
+            //  許容範囲: [再発日-4W, 再発日]
+            //  収録項目: CT, PET-CT, 病理画像, WGS
+            // ══════════════════════════════════════════════════════
+            // EDC Visit: 再発時
+            { date: (() => { const b = bands.find(b => b.name === '再発時'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '再発時 - 第一次再発確認' },
 
-            // 術後72w 臨床画像: ファイル未受信 → 点線グレー円（期待されたが受信されていない）
+            // 再発時 臨床画像: CT + PET-CT (green)
             {
-                date: addDays(surgeryDate, W(72)),
-                type: '臨床画像', status: 'missing_expected', visit: '術後72w - 臨床画像',
-                requiresJudgment: false,
-                isMissingExpected: true,
-                originalAssignedTP: '術後72w',
-                files: []
+                date: computeDotDate([
+                    { name: 'CT画像', actualDate: addDays(recurrenceDate, -7) },
+                    { name: 'CTレポート', actualDate: addDays(recurrenceDate, -7) },
+                    { name: 'PET-CT画像', actualDate: addDays(recurrenceDate, -5) },
+                    { name: 'PET-CTレポート', actualDate: addDays(recurrenceDate, -5) }
+                ], '再発時'),
+                type: '臨床画像', status: 'green', visit: '再発時 - 臨床画像',
+                requiresJudgment: false, originalAssignedTP: '再発時',
+                files: [
+                    { name: 'CT画像', actualDate: addDays(recurrenceDate, -7), isDelayed: false, assignedTP: '再発時', reason: '予定通り' },
+                    { name: 'CTレポート', actualDate: addDays(recurrenceDate, -7), isDelayed: false, assignedTP: '再発時', reason: '予定通り' },
+                    { name: 'PET-CT画像', actualDate: addDays(recurrenceDate, -5), isDelayed: false, assignedTP: '再発時', reason: '予定通り' },
+                    { name: 'PET-CTレポート', actualDate: addDays(recurrenceDate, -5), isDelayed: false, assignedTP: '再発時', reason: '予定通り' }
+                ]
             },
 
+            // 再発時 病理画像 (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: '再発巣生検病理', actualDate: addDays(recurrenceDate, -3) },
+            //         { name: '病理レポート', actualDate: addDays(recurrenceDate, -3) }
+            //     ], '再発時'),
+            //     type: '病理画像', status: 'green', visit: '再発時 - 病理画像',
+            //     requiresJudgment: false, originalAssignedTP: '再発時',
+            //     files: [
+            //         { name: '再発巣生検病理', actualDate: addDays(recurrenceDate, -3), isDelayed: false, assignedTP: '再発時', reason: '予定通り' },
+            //         { name: '病理レポート', actualDate: addDays(recurrenceDate, -3), isDelayed: false, assignedTP: '再発時', reason: '予定通り' }
+            //     ]
+            // },
+
+            // 再発時 ゲノム (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: 'WGS生データ（再発）', actualDate: addDays(recurrenceDate, -10) },
+            //         { name: 'WGSバリアントレポート', actualDate: addDays(recurrenceDate, -10) }
+            //     ], '再発時'),
+            //     type: 'ゲノム', status: 'green', visit: '再発時 - ゲノム（WGS）',
+            //     requiresJudgment: false, originalAssignedTP: '再発時',
+            //     files: [
+            //         { name: 'WGS生データ（再発）', actualDate: addDays(recurrenceDate, -10), isDelayed: false, assignedTP: '再発時', reason: '予定通り' },
+            //         { name: 'WGSバリアントレポート', actualDate: addDays(recurrenceDate, -10), isDelayed: false, assignedTP: '再発時', reason: '予定通り' }
+            //     ]
+            // },
+
+            // ══════════════════════════════════════════════════════
+            //  2025-12-31 追加: 第一次再発後の手術時
+            //  許容範囲: [-4w, +0w]（再発後手術日を新しい基準日とする）
+            // ══════════════════════════════════════════════════════
+            // EDC Visit: 手術時②
+            { date: (() => { const b = bands.find(b => b.name === '手術時②'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '手術時 - 第一次再発後手術' },
+
+            // 手術時② 臨床画像 (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: 'CT画像（術前）', actualDate: addDays(surgery2Date, -5) },
+            //         { name: 'CTレポート（術前）', actualDate: addDays(surgery2Date, -5) },
+            //         { name: 'PET-CT画像（術前）', actualDate: addDays(surgery2Date, -3) },
+            //         { name: 'PET-CTレポート（術前）', actualDate: addDays(surgery2Date, -3) }
+            //     ], '手術時②'),
+            //     type: '臨床画像', status: 'green', visit: '手術時 - 臨床画像',
+            //     requiresJudgment: false, originalAssignedTP: '手術時②',
+            //     files: [
+            //         { name: 'CT画像（術前）', actualDate: addDays(surgery2Date, -5), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' },
+            //         { name: 'CTレポート（術前）', actualDate: addDays(surgery2Date, -5), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' },
+            //         { name: 'PET-CT画像（術前）', actualDate: addDays(surgery2Date, -3), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' },
+            //         { name: 'PET-CTレポート（術前）', actualDate: addDays(surgery2Date, -3), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' }
+            //     ]
+            // },
+
+            // 手術時② 病理画像: HE染色のみ (green・バンド中央)
+            {
+                date: (() => { const b = bands.find(b => b.name === '手術時②'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(),
+                type: '病理画像', status: 'green', visit: '手術時 - 病理画像（第一次再発後）',
+                requiresJudgment: false, originalAssignedTP: '手術時②',
+                files: [
+                    { name: 'HE染色標本', actualDate: addDays(surgery2Date, 0), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' }
+                ]
+            },
+
+            // 手術時② ゲノム (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: 'WGS生データ（再発後手術）', actualDate: addDays(surgery2Date, -7) },
+            //         { name: 'WGSバリアントレポート（再発後手術）', actualDate: addDays(surgery2Date, -7) }
+            //     ], '手術時②'),
+            //     type: 'ゲノム', status: 'green', visit: '手術時 - ゲノム（WGS）',
+            //     requiresJudgment: false, originalAssignedTP: '手術時②',
+            //     files: [
+            //         { name: 'WGS生データ（再発後手術）', actualDate: addDays(surgery2Date, -7), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' },
+            //         { name: 'WGSバリアントレポート（再発後手術）', actualDate: addDays(surgery2Date, -7), isDelayed: false, assignedTP: '手術時②', reason: '予定通り' }
+            //     ]
+            // },
+
+            // ══════════════════════════════════════════════════════
+            //  2026-01-31 追加: 第一次再発後の術後4w
+            //  基準日: 再発後手術日 (surgery2Date)
+            //  許容範囲: [-1w, +1w]
+            // ══════════════════════════════════════════════════════
+            // EDC Visit: 術後4w②
+            { date: (() => { const b = bands.find(b => b.name === '術後4w②'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後4w - 第一次術後4w②' },
+
+            // 術後4w② 臨床画像 (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: 'CT画像（術後4w②）', actualDate: addDays(surgery2Date, W(4)) },
+            //         { name: 'CTレポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)) },
+            //         { name: 'PET-CT画像（術後4w②）', actualDate: addDays(surgery2Date, W(4)) },
+            //         { name: 'PET-CTレポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)) }
+            //     ], '術後4w②'),
+            //     type: '臨床画像', status: 'green', visit: '術後4w - 臨床画像',
+            //     requiresJudgment: false, originalAssignedTP: '術後4w②',
+            //     files: [
+            //         { name: 'CT画像（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' },
+            //         { name: 'CTレポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' },
+            //         { name: 'PET-CT画像（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' },
+            //         { name: 'PET-CTレポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' }
+            //     ]
+            // },
+
+            // 術後4w② 病理画像 (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: '病理組織（術後4w②）', actualDate: addDays(surgery2Date, W(4)) },
+            //         { name: '病理レポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)) }
+            //     ], '術後4w②'),
+            //     type: '病理画像', status: 'green', visit: '術後4w - 病理画像',
+            //     requiresJudgment: false, originalAssignedTP: '術後4w②',
+            //     files: [
+            //         { name: '病理組織（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' },
+            //         { name: '病理レポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' }
+            //     ]
+            // },
+
+            // 術後4w② ゲノム (コメントアウト)
+            // {
+            //     date: computeDotDate([
+            //         { name: 'WGS生データ（術後4w②）', actualDate: addDays(surgery2Date, W(4)) },
+            //         { name: 'WGSバリアントレポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)) }
+            //     ], '術後4w②'),
+            //     type: 'ゲノム', status: 'green', visit: '術後4w - ゲノム（WGS）',
+            //     requiresJudgment: false, originalAssignedTP: '術後4w②',
+            //     files: [
+            //         { name: 'WGS生データ（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' },
+            //         { name: 'WGSバリアントレポート（術後4w②）', actualDate: addDays(surgery2Date, W(4)), isDelayed: false, assignedTP: '術後4w②', reason: '予定通り' }
+            //     ]
+            // },
+
             // EDC Visit: 術後720w → バンド中心
-            { date: (() => { const b = bands.find(b => b.name === '術後720w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後720w - 長期追跡調査' }
+            { date: (() => { const b = bands.find(b => b.name === '術後720w'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(), type: 'EDC Visit', status: 'green', visit: '術後720w - 長期追跡調査' },
+
+            // ─── 病理画像 ───
+            // 登録時 病理画像: green
+            // {
+            //     date: computeDotDate([
+            //         { name: 'HE染色標本', actualDate: addDays(registrationDate, -5) },
+            //         { name: '病理レポート', actualDate: addDays(registrationDate, -5) }
+            //     ], '登録時'),
+            //     type: '病理画像', status: 'green', visit: '登録時 - 病理画像',
+            //     requiresJudgment: false, originalAssignedTP: '登録時',
+            //     files: [
+            //         { name: 'HE染色標本', actualDate: addDays(registrationDate, -5), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+            //         { name: '病理レポート', actualDate: addDays(registrationDate, -5), isDelayed: false, assignedTP: '登録時', reason: '予定通り' }
+            //     ]
+            // },
+            // 手術時 病理画像: green (HE染色のみ)
+            {
+                date: (() => { const b = bands.find(b => b.name === '手術時'); const mid = new Date((new Date(b.startDate).getTime() + new Date(b.endDate).getTime()) / 2); return mid.toISOString().split('T')[0]; })(),
+                type: '病理画像', status: 'green', visit: '手術時 - 病理画像',
+                requiresJudgment: false, originalAssignedTP: '手術時',
+                files: [
+                    { name: 'HE染色標本', actualDate: addDays(surgeryDate, 0), isDelayed: false, assignedTP: '手術時', reason: '予定通り' }
+                ]
+            },
+            // 術後24w 病理画像: red (要判定)
+            // {
+            //     date: addDays(surgeryDate, W(24) + 28),
+            //     type: '病理画像', status: 'red', visit: '病理画像',
+            //     requiresJudgment: true, originalAssignedTP: '術後24w',
+            //     files: [
+            //         { name: '生検病理報告', actualDate: addDays(surgeryDate, W(24) + 28), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(24) + 28) }
+            //     ]
+            // },
+            // 術後48w 病理画像: green
+            // {
+            //     date: computeDotDate([
+            //         { name: 'IHC検査結果', actualDate: addDays(surgeryDate, W(48)) },
+            //         { name: 'PD-L1レポート', actualDate: addDays(surgeryDate, W(48)) }
+            //     ], '術後48w'),
+            //     type: '病理画像', status: 'green', visit: '術後48w - 病理画像',
+            //     requiresJudgment: false, originalAssignedTP: '術後48w',
+            //     files: [
+            //         { name: 'IHC検査結果', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' },
+            //         { name: 'PD-L1レポート', actualDate: addDays(surgeryDate, W(48)), isDelayed: false, assignedTP: '術後48w', reason: '予定通り' }
+            //     ]
+            // },
+
+            // ─── Genome (コメントアウト) ───
+            // 登録時 Genome: green
+            // {
+            //     date: computeDotDate([
+            //         { name: 'WES生データ', actualDate: addDays(registrationDate, -3) },
+            //         { name: 'バリアントコールレポート', actualDate: addDays(registrationDate, -3) }
+            //     ], '登録時'),
+            //     type: 'ゲノム', status: 'green', visit: '登録時 - ゲノム',
+            //     requiresJudgment: false, originalAssignedTP: '登録時',
+            //     files: [
+            //         { name: 'WES生データ', actualDate: addDays(registrationDate, -3), isDelayed: false, assignedTP: '登録時', reason: '予定通り' },
+            //         { name: 'バリアントコールレポート', actualDate: addDays(registrationDate, -3), isDelayed: false, assignedTP: '登録時', reason: '予定通り' }
+            //     ]
+            // },
+            // 手術時 Genome: green
+            // {
+            //     date: computeDotDate([
+            //         { name: 'ctDNA (術前)', actualDate: addDays(surgeryDate, -5) },
+            //         { name: 'TMB解析結果', actualDate: addDays(surgeryDate, -5) }
+            //     ], '手術時'),
+            //     type: 'ゲノム', status: 'green', visit: '手術時 - ゲノム',
+            //     requiresJudgment: false, originalAssignedTP: '手術時',
+            //     files: [
+            //         { name: 'ctDNA (術前)', actualDate: addDays(surgeryDate, -1), isDelayed: false, assignedTP: '手術時', reason: '予定通り' },
+            //         { name: 'TMB解析結果', actualDate: addDays(surgeryDate, 3), isDelayed: false, assignedTP: '手術時', reason: '予定通り' }
+            //     ]
+            // },
+            // 術後12w Genome: green
+            // {
+            //     date: computeDotDate([
+            //         { name: 'ctDNA (術後12w)', actualDate: addDays(surgeryDate, W(12)) }
+            //     ], '術後12w'),
+            //     type: 'ゲノム', status: 'green', visit: '術後12w - ゲノム',
+            //     requiresJudgment: false, originalAssignedTP: '術後12w',
+            //     files: [
+            //         { name: 'ctDNA (術後12w)', actualDate: addDays(surgeryDate, W(12)), isDelayed: false, assignedTP: '術後12w', reason: '予定通り' }
+            //     ]
+            // },
+            // 術後48w Genome: red (要判定 - 遅延)
+            // {
+            //     date: addDays(surgeryDate, W(48) + 22),
+            //     type: 'ゲノム', status: 'red', visit: 'ゲノム',
+            //     requiresJudgment: true, originalAssignedTP: '術後48w',
+            //     files: [
+            //         { name: 'ctDNA (術後48w)', actualDate: addDays(surgeryDate, W(48) + 22), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 22) },
+            //         { name: 'RNA-Seq解析', actualDate: addDays(surgeryDate, W(48) + 22), isDelayed: true, assignedTP: '', reason: '', originalDate: addDays(surgeryDate, W(48) + 22) }
+            //     ]
+            // },
         ];
+
+        // 判定履歴
+        let auditLog = [];
+        let auditFilter = 'all';
+
+        function updateAuditBadge() {
+            const badge = document.getElementById('audit-count-badge');
+            if (auditLog.length > 0) {
+                badge.style.display = 'inline-block';
+                badge.textContent = auditLog.length;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        window.setAuditFilter = function (f) {
+            auditFilter = f;
+            ['all', 'include', 'exclude'].forEach(k => {
+                const btn = document.getElementById('filter-' + k);
+                if (k === f) {
+                    btn.style.background = k === 'include' ? '#16a34a' : k === 'exclude' ? '#dc2626' : '#6d28d9';
+                    btn.style.color = '#fff';
+                } else {
+                    btn.style.background = k === 'include' ? '#f0fdf4' : k === 'exclude' ? '#fff1f0' : '#f5f3ff';
+                    btn.style.color = k === 'include' ? '#15803d' : k === 'exclude' ? '#b91c1c' : '#6d28d9';
+                }
+            });
+            renderAuditBody();
+        };
+
+        function renderAuditBody() {
+            const body = document.getElementById('audit-panel-body');
+            const filtered = auditFilter === 'all' ? auditLog : auditLog.filter(r => r.actionType === auditFilter);
+            if (filtered.length === 0) {
+                body.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:20px;">履歴がありません</p>';
+                return;
+            }
+            body.innerHTML = filtered.slice().reverse().map((r) => {
+                const isInclude = r.actionType === 'include';
+                const borderColor = isInclude ? '#86efac' : '#fca5a5';
+                const bgColor = isInclude ? '#f0fdf4' : '#fff8f8';
+                const icon = isInclude ? '✅' : '⛔';
+                const actionLabel = isInclude ? '研究納入' : '研究対象外';
+                const actionBg = isInclude ? '#dcfce7' : '#fee2e2';
+                const actionColor = isInclude ? '#15803d' : '#991b1b';
+                const filesHtml = r.files.map(f => {
+                    if (isInclude) {
+                        return '<tr>'
+                            + '<td style="padding:4px 6px;border-bottom:1px solid #f1f5f9;">' + f.name + '</td>'
+                            + '<td style="padding:4px 6px;border-bottom:1px solid #f1f5f9;">' + (f.actualDate || '未取得') + '</td>'
+                            + '<td style="padding:4px 6px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#1d4ed8;">' + (f.assignedTP || '—') + '</td>'
+                            + '<td style="padding:4px 6px;border-bottom:1px solid #f1f5f9;color:#64748b;">' + (f.reason || '—') + '</td>'
+                            + '</tr>';
+                    } else {
+                        return '<tr>'
+                            + '<td style="padding:4px 6px;border-bottom:1px solid #f1f5f9;">' + f.name + '</td>'
+                            + '<td style="padding:4px 6px;border-bottom:1px solid #f1f5f9;">' + (f.actualDate || '未取得') + '</td>'
+                            + '</tr>';
+                    }
+                }).join('');
+                const thHtml = isInclude
+                    ? '<th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e2e8f0;">ファイル名</th><th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e2e8f0;">実施日</th><th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e2e8f0;">割当TP</th><th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e2e8f0;">判定理由</th>'
+                    : '<th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e2e8f0;">ファイル名</th><th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e2e8f0;">実施日</th>';
+                return '<div style="border:1px solid ' + borderColor + ';border-radius:6px;padding:10px;margin-bottom:8px;background:' + bgColor + ';">'
+                    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'
+                    + '<span style="font-weight:700;color:#1a2332;">' + icon + ' ' + r.visit + '</span>'
+                    + '<span style="font-size:10px;color:#94a3b8;">' + r.timestamp + '</span>'
+                    + '</div>'
+                    + '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">'
+                    + '<span style="background:' + actionBg + ';color:' + actionColor + ';border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">' + actionLabel + '</span>'
+                    + '<span style="background:#f1f5f9;color:#475569;border-radius:4px;padding:2px 7px;font-size:11px;">種類: ' + r.type + '</span>'
+                    + '<span style="background:#f1f5f9;color:#475569;border-radius:4px;padding:2px 7px;font-size:11px;">担当: ' + r.operator + '</span>'
+                    + (r.excludeReason ? '<span style="background:#fee2e2;color:#991b1b;border-radius:4px;padding:2px 7px;font-size:11px;">除外理由: ' + r.excludeReason + '</span>' : '')
+                    + '</div>'
+                    + (r.comment && r.comment !== '—' ? '<div style="color:#64748b;font-size:11px;margin-bottom:6px;padding:4px 6px;background:#f8fafc;border-radius:4px;border-left:2px solid #c4b5fd;">💬 ' + r.comment + '</div>' : '')
+                    + '<table style="width:100%;font-size:11px;border-collapse:collapse;">'
+                    + '<thead><tr style="background:#f8fafc;">' + thHtml + '</tr></thead>'
+                    + '<tbody>' + filesHtml + '</tbody>'
+                    + '</table>'
+                    + '</div>';
+            }).join('');
+        }
+
+        window.showAuditLog = function () {
+            const panel = document.getElementById('audit-panel');
+            if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
+            renderAuditBody();
+            panel.style.display = 'block';
+        };
 
         let activeDataIndex = null;
 
@@ -687,52 +1401,57 @@
 
             const markAreas = [];
             bands.forEach(b => {
-                markAreas.push([
-                    {
-                        coord: [b.startDate, 0], itemStyle: { color: b.color },
-                        label: { show: true, position: 'insideTop', distance: 10, formatter: `{title|${b.name}}\n{window|${b.window}}`, rich: { title: { color: '#1a2332', fontSize: 13, fontWeight: 700, align: 'center', lineHeight: 22 }, window: { color: '#64748b', fontSize: 10, align: 'center', backgroundColor: '#ffffff', padding: [3, 5], borderRadius: 4, borderWidth: 1, borderColor: '#cbd5e1' } } }
-                    },
-                    { coord: [b.endDate, 1] }
-                ]);
-                markAreas.push([
-                    { coord: [b.startDate, 0], itemStyle: { color: 'transparent' }, label: { show: true, position: 'insideBottom', distance: 6, formatter: `{date|${b.targetDateStr}}`, rich: { date: { color: (b.name === '登録時' || b.name === '手術時') ? '#1d4ed8' : '#64748b', fontSize: 11, align: 'center', backgroundColor: (b.name === '登録時' || b.name === '手術時') ? '#dbeafe' : '#eef3ff', padding: [2, 6], borderRadius: 4, fontWeight: (b.name === '登録時' || b.name === '手術時') ? 'bold' : 'normal', borderWidth: (b.name === '登録時' || b.name === '手術時') ? 1.5 : 0, borderColor: '#3b82f6' } } } },
-                    { coord: [b.endDate, 1] }
-                ]);
+                const isKeyTP = b.name === '登録時' || b.name === '手術時' || b.name === '手術時②';
+                const label = b.displayName || b.name;
+                if (isKeyTP) {
+                    markAreas.push([
+                        {
+                            coord: [b.startDate, 0], itemStyle: { color: b.color },
+                            label: {
+                                show: true, position: 'insideTop', distance: 6,
+                                formatter: `{date|${b.targetDateStr}}\n{title|${label}}\n{window|${b.window}}`,
+                                rich: {
+                                    date: { color: '#1d4ed8', fontSize: 14, fontWeight: 'bold', align: 'center', backgroundColor: '#dbeafe', padding: [2, 8], borderRadius: 4, borderWidth: 1.5, borderColor: '#3b82f6', lineHeight: 24 },
+                                    title: { color: '#1a2332', fontSize: 16, fontWeight: 700, align: 'center', lineHeight: 26 },
+                                    window: { color: '#64748b', fontSize: 13, align: 'center', backgroundColor: '#ffffff', padding: [3, 6], borderRadius: 4, borderWidth: 1, borderColor: '#cbd5e1', lineHeight: 24 }
+                                }
+                            }
+                        },
+                        { coord: [b.endDate, 1] }
+                    ]);
+                } else {
+                    markAreas.push([
+                        {
+                            coord: [b.startDate, 0], itemStyle: { color: b.color },
+                            label: {
+                                show: true, position: 'insideTop', distance: 6,
+                                formatter: `{date|${b.targetDateStr}}\n{title|${label}}\n{window|${b.window}}`,
+                                rich: {
+                                    date: { color: '#64748b', fontSize: 14, align: 'center', backgroundColor: '#eef3ff', padding: [2, 8], borderRadius: 4, lineHeight: 24 },
+                                    title: { color: '#1a2332', fontSize: 16, fontWeight: 700, align: 'center', lineHeight: 26 },
+                                    window: { color: '#64748b', fontSize: 13, align: 'center', backgroundColor: '#ffffff', padding: [3, 6], borderRadius: 4, borderWidth: 1, borderColor: '#cbd5e1', lineHeight: 24 }
+                                }
+                            }
+                        },
+                        { coord: [b.endDate, 1] }
+                    ]);
+                }
             });
 
             const timelineMarkLines = [
                 [{ coord: [bands[0].targetDateStr, 1], lineStyle: { color: '#cbd5e1', width: 1.5, type: 'solid' } }, { coord: [bands[bands.length - 1].targetDateStr, 1] }],
-                [{
-                    coord: [getTargetDateStr('登録時'), 0],
-                    lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' },
-                    label: {
-                        show: true, position: 'start', distance: 8,
-                        formatter: `登録日`,
-                        color: '#1d4ed8', fontWeight: 'bold', fontSize: 11,
-                        backgroundColor: '#dbeafe', padding: [3, 6], borderRadius: 4,
-                        borderWidth: 1.5, borderColor: '#3b82f6'
-                    }
-                }, { coord: [getTargetDateStr('登録時'), 1] }],
-                [{
-                    coord: [getTargetDateStr('手術時'), 0],
-                    lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' },
-                    label: {
-                        show: true, position: 'start', distance: 8,
-                        formatter: `手術日`,
-                        color: '#1d4ed8', fontWeight: 'bold', fontSize: 11,
-                        backgroundColor: '#dbeafe', padding: [3, 6], borderRadius: 4,
-                        borderWidth: 1.5, borderColor: '#3b82f6'
-                    }
-                }, { coord: [getTargetDateStr('手術時'), 1] }]
+                [{ coord: [getTargetDateStr('登録時'), 0], lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' }, label: { show: false } }, { coord: [getTargetDateStr('登録時'), 1] }],
+                [{ coord: [getTargetDateStr('手術時'), 0], lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' }, label: { show: false } }, { coord: [getTargetDateStr('手術時'), 1] }],
+                [{ coord: [getTargetDateStr('手術時②'), 0], lineStyle: { color: '#3b5bdb', width: 2.5, type: 'solid' }, label: { show: false } }, { coord: [getTargetDateStr('手術時②'), 1] }]
             ];
 
             myChart.setOption({
                 tooltip: { show: false },
-                grid: { left: '8%', right: '5%', top: '10%', bottom: 90 },
+                grid: { left: '9%', right: '5%', top: '10%', bottom: 90 },
                 dataZoom: [{ type: 'slider', show: true, xAxisIndex: [0], bottom: 15, height: 24, start: 0, end: 20 }, { type: 'inside', xAxisIndex: [0], zoomOnMouseWheel: true, moveOnMouseMove: true }],
                 xAxis: [{ type: 'time', position: 'bottom', min: xMin, max: xMax, axisLabel: { show: false }, splitLine: { show: false }, axisLine: { lineStyle: { color: '#e8ecf2' } }, axisTick: { show: false } }],
                 yAxis: [
-                    { type: 'category', data: ['EDC Visit', '臨床画像'], inverse: true, boundaryGap: true, axisLine: { show: false }, axisLabel: { color: '#1e3a5f', fontWeight: 'bold', margin: 16 } },
+                    { type: 'category', data: ['EDC Visit', '臨床画像', '病理画像'], inverse: true, boundaryGap: true, axisLine: { show: false }, axisLabel: { color: '#1e3a5f', fontWeight: 'bold', margin: 16, fontSize: 17 } },
                     { type: 'value', min: 0, max: 1, inverse: true, show: false }
                 ],
                 series: [
@@ -754,6 +1473,18 @@
                             let c = '#52c41a'; // green
                             if (d.status === 'red') c = '#ff4d4f';
                             if (d.status === 'yellow') c = '#faad14';
+                            if (d.status === 'excluded') {
+                                return {
+                                    value: [d.date, d.type], idx: i,
+                                    symbol: 'circle', symbolSize: 18,
+                                    itemStyle: {
+                                        color: '#d9d9d9',
+                                        borderColor: '#8c8c8c',
+                                        borderWidth: 1.5,
+                                        borderType: 'solid'
+                                    }
+                                };
+                            }
                             return { value: [d.date, d.type], idx: i, itemStyle: { color: c, shadowBlur: 4, shadowColor: c + '66' } };
                         })
                     },
@@ -765,97 +1496,141 @@
             });
         }
 
+        // ═══════════════════════════════════════════════════════════
+        //  POPUP STEP NAVIGATION
+        // ═══════════════════════════════════════════════════════════
+        function setStep(stepId) {
+            ['step-1', 'step-2a', 'step-2b'].forEach(id => {
+                document.getElementById(id).classList.remove('active');
+            });
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        window.goStep2Include = function () {
+            const pd = patientData[activeDataIndex];
+            // Build the assign table rows
+            let rowsHtml = '';
+            pd.files.forEach((f, i) => {
+                if (pd.requiresJudgment && f.isDelayed && !f.isMissing) {
+                    let dateBadge = `<span class="status-badge status-warn">遅延</span>`;
+                    rowsHtml += `
+                        <tr style="background:#fffcfc">
+                            <td><strong>${f.name}</strong></td>
+                            <td>${f.actualDate}<br>${dateBadge}</td>
+                            <td>
+                                <select id="sel-tp-${i}" onchange="checkForm()">
+                                    <option value="">-- 選択 --</option>
+                                    ${tpOptionsHTML}
+                                </select>
+                            </td>
+                            <td>
+                                <select id="sel-rs-${i}" onchange="checkForm()">
+                                    ${reasonOptionsHTML}
+                                </select>
+                            </td>
+                        </tr>`;
+                }
+            });
+            document.getElementById('pop-table-assign-body').innerHTML = rowsHtml;
+            document.getElementById('pop-btn').disabled = true;
+            setStep('step-2a');
+        };
+
+        window.goStep2Exclude = function () {
+            const pd = patientData[activeDataIndex];
+            // Build file checklist
+            let listHtml = pd.files
+                .filter(f => f.isDelayed && !f.isMissing)
+                .map((f, i) => `
+                    <div class="file-check-item">
+                        <input type="checkbox" id="excl-chk-${i}" checked>
+                        <label for="excl-chk-${i}" style="cursor:pointer;">
+                            <strong>${f.name}</strong>
+                            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">${f.actualDate}</span>
+                        </label>
+                    </div>`).join('');
+            document.getElementById('excl-file-list').innerHTML = listHtml || '<p style="color:#94a3b8;font-size:11px;">対象ファイルなし</p>';
+            document.getElementById('excl-reason-select').value = '';
+            document.getElementById('excl-comment').value = '';
+            document.getElementById('confirm-excl-btn').disabled = true;
+            setStep('step-2b');
+        };
+
+        window.goBack = function () {
+            setStep('step-1');
+        };
+
+        // ═══════════════════════════════════════════════════════════
+        //  CHART CLICK → open popup (Step 1)
+        // ═══════════════════════════════════════════════════════════
         myChart.on('click', (params) => {
             if (params.componentType === 'series' && params.seriesIndex === 0) {
                 const pd = patientData[params.data.idx];
-
-                // 未受信ファイルの点線円はクリックしても何もしない
                 if (pd.isMissingExpected) return;
 
                 if (pd.files) {
                     activeDataIndex = params.data.idx;
 
+                    // Position popup
                     let leftPos = params.event.offsetX + 20;
                     let topPos = params.event.offsetY - 200;
-
                     const contentArea = document.getElementById('main-content');
                     const contentW = contentArea.offsetWidth;
                     const contentH = contentArea.offsetHeight;
-
                     if (leftPos + 700 > contentW) leftPos = params.event.offsetX - 700;
                     if (topPos < 20) topPos = 20;
-                    if (topPos + 400 > contentH) topPos = contentH - 410;
+                    if (topPos + 460 > contentH) topPos = contentH - 460;
                     if (topPos < 10) topPos = 10;
-
                     popup.style.left = leftPos + 'px';
                     popup.style.top = topPos + 'px';
 
+                    // Header color
                     let titleColor = '#52c41a';
                     if (pd.status === 'red') titleColor = '#ff4d4f';
                     if (pd.status === 'yellow') titleColor = '#faad14';
-                    document.getElementById('pop-header-text').innerHTML = `<span style="color:${titleColor}">&#128193; ${pd.visit}</span>`;
+                    if (pd.status === 'excluded') titleColor = '#8c8c8c';
+                    document.getElementById('pop-header-text').innerHTML =
+                        `<span style="color:${titleColor}">&#128193; ${pd.visit}</span>`;
 
+                    // Build Step-1 preview table (read-only)
                     const tbody = document.getElementById('pop-table-body');
-                    const btn = document.getElementById('pop-btn');
                     let rowsHtml = '';
-
                     if (pd.files.length === 0) {
-                        rowsHtml = `<tr><td colspan="4" style="text-align:center; padding:30px; color:#94a3b8;">ファイルがアップロードされていません</td></tr>`;
-                        btn.style.display = 'none';
+                        rowsHtml = `<tr><td colspan="4" style="text-align:center;padding:30px;color:#94a3b8;">ファイルがアップロードされていません</td></tr>`;
                     } else {
-                        pd.files.forEach((f, i) => {
-                            let dateBadge = '';
-                            if (f.isMissing) {
-                                dateBadge = `<span class="status-badge status-err">欠落</span>`;
-                            } else if (f.isDelayed) {
-                                dateBadge = `<span class="status-badge status-warn">遅延</span>`;
-                            } else {
-                                dateBadge = `<span class="status-badge status-ok">定刻</span>`;
+                        pd.files.forEach((f) => {
+                            let dateBadge = f.isMissing
+                                ? `<span class="status-badge status-err">欠落</span>`
+                                : f.isDelayed
+                                    ? `<span class="status-badge status-warn">遅延</span>`
+                                    : `<span class="status-badge status-ok">定刻</span>`;
+                            let tpCell = f.assignedTP
+                                ? `<strong>${f.assignedTP}</strong>`
+                                : `<span style="color:#94a3b8;font-style:italic;">未割当</span>`;
+                            if (f.modifiedBy && f.modifiedBy !== 'System') {
+                                tpCell += `<span class="audit-info"><strong>変更:</strong> ${f.modifiedBy}</span>`;
                             }
-
-                            if (pd.status === 'red' && pd.requiresJudgment && f.isDelayed && !f.isMissing) {
-                                rowsHtml += `
-                                    <tr style="background:#fffcfc">
-                                        <td><strong>${f.name}</strong></td>
-                                        <td>${f.actualDate} <br>${dateBadge}</td>
-                                        <td>
-                                            <select id="sel-tp-${i}" onchange="checkForm()">
-                                                <option value="">-- 選択 --</option>
-                                                ${tpOptionsHTML}
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select id="sel-rs-${i}" onchange="checkForm()">
-                                                ${reasonOptionsHTML}
-                                            </select>
-                                        </td>
-                                    </tr>
-                                `;
-                            } else {
-                                let auditStr = '';
-                                if (f.modifiedBy && f.modifiedBy !== 'System') {
-                                    auditStr = `<span class="audit-info"><strong>変更:</strong> ${f.modifiedBy} <br>(元: ${f.originalDate})</span>`;
-                                }
-                                rowsHtml += `
-                                    <tr>
-                                        <td>${f.name}</td>
-                                        <td>${f.actualDate} <br>${dateBadge}</td>
-                                        <td><strong>${f.assignedTP}</strong> ${auditStr}</td>
-                                        <td style="color:#64748b">${f.reason}</td>
-                                    </tr>
-                                `;
-                            }
+                            rowsHtml += `
+                                <tr>
+                                    <td>${f.name}</td>
+                                    <td>${f.actualDate || '未取得'}<br>${dateBadge}</td>
+                                    <td>${tpCell}</td>
+                                    <td style="color:#64748b;">${f.reason || '—'}</td>
+                                </tr>`;
                         });
+                    }
+                    tbody.innerHTML = rowsHtml;
 
-                        if (pd.status === 'red' && pd.requiresJudgment) {
-                            btn.style.display = 'block';
-                            btn.disabled = true; // 每次打开重置为禁用
-                        } else {
-                            btn.style.display = 'none';
-                        }
+                    // Show/hide decision cards
+                    const decisionArea = document.getElementById('decision-area');
+                    if (pd.status === 'red' && pd.requiresJudgment && pd.files.length > 0) {
+                        decisionArea.style.display = 'block';
+                    } else {
+                        decisionArea.style.display = 'none';
                     }
 
-                    tbody.innerHTML = rowsHtml;
+                    // Always start at step 1
+                    setStep('step-1');
                     popup.style.display = 'block';
                 } else {
                     closePopup();
@@ -866,118 +1641,185 @@
         popup.addEventListener('click', (e) => e.stopPropagation());
         myChart.getZr().on('click', (params) => { if (!params.target) closePopup(); });
 
+        // ═══════════════════════════════════════════════════════════
+        //  STEP 2A — include: validate form
+        // ═══════════════════════════════════════════════════════════
         window.checkForm = function () {
             const pd = patientData[activeDataIndex];
             let hasAnyFilled = false;
-
             pd.files.forEach((f, i) => {
-                if (pd.status === 'red' && pd.requiresJudgment && f.isDelayed && !f.isMissing) {
-                    const tpVal = document.getElementById(`sel-tp-${i}`).value;
-                    const rsVal = document.getElementById(`sel-rs-${i}`).value;
-                    if (tpVal && rsVal) {
-                        hasAnyFilled = true;
-                    }
+                if (pd.requiresJudgment && f.isDelayed && !f.isMissing) {
+                    const tpEl = document.getElementById(`sel-tp-${i}`);
+                    const rsEl = document.getElementById(`sel-rs-${i}`);
+                    if (tpEl && rsEl && tpEl.value && rsEl.value) hasAnyFilled = true;
                 }
             });
             document.getElementById('pop-btn').disabled = !hasAnyFilled;
-        }
-
-        // ================= 核心剥离、完美归位与【同Timepoint合并】逻辑 =================
-        document.getElementById('pop-btn').onclick = () => {
-            if (activeDataIndex !== null) {
-                const pd = patientData[activeDataIndex];
-
-                const movedFilesMap = {}; // 用来归类移动到不同TP的文件
-                const remainingFiles = []; // 留在原地的文件
-
-                let hasRemainingNeedingJudgment = false;
-                let hasRemainingMissing = false;
-
-                // 1. 遍历文件进行分类
-                pd.files.forEach((f, i) => {
-                    if (pd.status === 'red' && pd.requiresJudgment && f.isDelayed && !f.isMissing) {
-                        const tpVal = document.getElementById(`sel-tp-${i}`).value;
-                        const rsVal = document.getElementById(`sel-rs-${i}`).value;
-
-                        if (tpVal && rsVal) {
-                            // 该文件被判定了，准备移走
-                            f.assignedTP = tpVal;
-                            f.reason = rsVal;
-                            f.modifiedBy = 'Dr. 山田 (CRA)';
-
-                            if (!movedFilesMap[tpVal]) movedFilesMap[tpVal] = [];
-                            movedFilesMap[tpVal].push(f);
-                        } else {
-                            // 未判定的延迟文件，留下来
-                            remainingFiles.push(f);
-                            hasRemainingNeedingJudgment = true;
-                        }
-                    } else {
-                        // 正常文件 或 缺失文件，留下来
-                        remainingFiles.push(f);
-                        if (f.isMissing) hasRemainingMissing = true;
-                    }
-                });
-
-                // 2. 留在原点のデータを更新
-                pd.files = remainingFiles;
-
-                if (hasRemainingNeedingJudgment) {
-                    // まだ判定待ちファイルが残る → redのまま、位置を再計算
-                    pd.status = 'red';
-                    pd.requiresJudgment = true;
-                    pd.date = computeDotDate(remainingFiles, pd.originalAssignedTP);
-                } else if (hasRemainingMissing) {
-                    // 欠損ファイルのみ残る → redのまま
-                    pd.status = 'red';
-                    pd.requiresJudgment = false;
-                    pd.visit = pd.visit.replace('', '').trim();
-                    pd.date = computeDotDate(remainingFiles, pd.originalAssignedTP);
-                } else {
-                    // 判定待ちファイルが全てなくなった → この赤点ノードを削除する
-                    // （合規ファイルの緑点は既に別ノードとして存在している）
-                    const selfIdx = patientData.indexOf(pd);
-                    if (selfIdx !== -1) patientData.splice(selfIdx, 1);
-                    activeDataIndex = null;
-                }
-
-                // 3. 🌟 黄点: timepointのターゲット日付の右側に配置 🌟
-                for (const tpName in movedFilesMap) {
-                    const targetBand = bands.find(b => b.name === tpName);
-                    if (targetBand) {
-                        // yellow dot の位置: targetDateStr の少し右 (endDate + 7日オフセット)
-                        const yellowDate = targetBand.endDate;
-
-                        // 既存の黄点を探す（同じtimepointと同じtype）
-                        const existingYellowNode = patientData.find(d =>
-                            d.status === 'yellow' &&
-                            d.type === pd.type &&
-                            d.visit.includes(tpName)
-                        );
-
-                        if (existingYellowNode) {
-                            // 既存の黄点にファイルをマージ
-                            existingYellowNode.files.push(...movedFilesMap[tpName]);
-                        } else {
-                            // 新しい黄点を作成: timepointのターゲット日付の右側（endDate）
-                            patientData.push({
-                                date: yellowDate,
-                                type: pd.type,
-                                status: 'yellow',
-                                visit: `${tpName} - 臨床画像`,
-                                requiresJudgment: false,
-                                files: movedFilesMap[tpName]
-                            });
-                        }
-                    }
-                }
-
-                closePopup();
-                draw();
-            }
         };
 
-        window.addEventListener('resize', () => { myChart.resize(); closePopup(); });
+        // ═══════════════════════════════════════════════════════════
+        //  STEP 2A — confirm include (move to timepoint)
+        // ═══════════════════════════════════════════════════════════
+        window.confirmInclude = function () {
+            if (activeDataIndex === null) return;
+            const pd = patientData[activeDataIndex];
+            const movedFilesMap = {};
+            const remainingFiles = [];
+            let hasRemainingNeedingJudgment = false;
+            let hasRemainingMissing = false;
+
+            pd.files.forEach((f, i) => {
+                if (pd.requiresJudgment && f.isDelayed && !f.isMissing) {
+                    const tpVal = document.getElementById(`sel-tp-${i}`) ? document.getElementById(`sel-tp-${i}`).value : '';
+                    const rsVal = document.getElementById(`sel-rs-${i}`) ? document.getElementById(`sel-rs-${i}`).value : '';
+                    if (tpVal && rsVal) {
+                        f.assignedTP = tpVal;
+                        f.reason = rsVal;
+                        f.modifiedBy = 'Dr. 山田 (CRA)';
+                        if (!movedFilesMap[tpVal]) movedFilesMap[tpVal] = [];
+                        movedFilesMap[tpVal].push(f);
+                    } else {
+                        remainingFiles.push(f);
+                        hasRemainingNeedingJudgment = true;
+                    }
+                } else {
+                    remainingFiles.push(f);
+                    if (f.isMissing) hasRemainingMissing = true;
+                }
+            });
+
+            pd.files = remainingFiles;
+            if (hasRemainingNeedingJudgment) {
+                pd.status = 'red'; pd.requiresJudgment = true;
+                pd.date = computeDotDate(remainingFiles, pd.originalAssignedTP);
+            } else if (hasRemainingMissing) {
+                pd.status = 'red'; pd.requiresJudgment = false;
+                pd.visit = pd.visit.replace('', '').trim();
+                pd.date = computeDotDate(remainingFiles, pd.originalAssignedTP);
+            } else {
+                const selfIdx = patientData.indexOf(pd);
+                if (selfIdx !== -1) patientData.splice(selfIdx, 1);
+                activeDataIndex = null;
+            }
+
+            for (const tpName in movedFilesMap) {
+                const targetBand = bands.find(b => b.name === tpName);
+                if (targetBand) {
+                    const yellowDate = targetBand.endDate;
+                    const existingYellowNode = patientData.find(d =>
+                        d.status === 'yellow' && d.type === pd.type && d.visit.includes(tpName));
+                    if (existingYellowNode) {
+                        existingYellowNode.files.push(...movedFilesMap[tpName]);
+                    } else {
+                        patientData.push({
+                            date: yellowDate, type: pd.type, status: 'yellow',
+                            visit: `${tpName} - ${pd.type}`,
+                            requiresJudgment: false, files: movedFilesMap[tpName]
+                        });
+                    }
+                }
+            }
+            // Log each included file to audit
+            const now = new Date();
+            const ts = now.toLocaleDateString('ja-JP') + ' ' + now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+            for (const tpName in movedFilesMap) {
+                auditLog.push({
+                    actionType: 'include',
+                    visit: pd.visit,
+                    type: pd.type,
+                    operator: 'Dr. 山田 (CRA)',
+                    timestamp: ts,
+                    files: movedFilesMap[tpName].map(f => ({ name: f.name, actualDate: f.actualDate, assignedTP: f.assignedTP, reason: f.reason }))
+                });
+            }
+            updateAuditBadge();
+            closePopup();
+            draw();
+        };
+
+        // ═══════════════════════════════════════════════════════════
+        //  STEP 2B — exclude: validate form
+        // ═══════════════════════════════════════════════════════════
+        window.checkExcludeForm = function () {
+            const reason = document.getElementById('excl-reason-select').value;
+            document.getElementById('confirm-excl-btn').disabled = !reason;
+        };
+
+        // ═══════════════════════════════════════════════════════════
+        //  STEP 2B — confirm exclude (remove from chart + log)
+        // ═══════════════════════════════════════════════════════════
+        window.confirmExclude = function () {
+            if (activeDataIndex === null) return;
+            const pd = patientData[activeDataIndex];
+            const reason = document.getElementById('excl-reason-select').value;
+            const comment = document.getElementById('excl-comment').value.trim();
+
+            const now = new Date();
+            const ts = now.toLocaleDateString('ja-JP') + ' ' + now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+
+            auditLog.push({
+                actionType: 'exclude',
+                visit: pd.visit,
+                type: pd.type,
+                excludeReason: reason,
+                comment: comment || '—',
+                timestamp: ts,
+                operator: 'Dr. 山田 (CRA)',
+                files: pd.files
+                    .filter(f => f.isDelayed && !f.isMissing)
+                    .map(f => ({ name: f.name, actualDate: f.actualDate || '未取得' }))
+            });
+
+            // Remove node from chart
+            const selfIdx = patientData.indexOf(pd);
+            if (selfIdx !== -1) patientData.splice(selfIdx, 1);
+            activeDataIndex = null;
+
+            updateAuditBadge();
+            closePopup();
+            draw();
+        };
+
+        // legacy handleExclude shim (unused but kept safe)
+        window.handleExclude = window.goStep2Exclude;
+
+        // ═══════════════════════════════════════════════════════════
+        //  HTML OVERLAY: 登録日 / 手術日 above the chart area
+        // ═══════════════════════════════════════════════════════════
+        const keyBandOverlays = [
+            { name: '登録時', label: '登録日' },
+            { name: '手術時', label: '手術日' },
+            { name: '手術時②', label: '手術日（第一次再発後）' }
+        ];
+
+        function updateBandOverlays() {
+            keyBandOverlays.forEach(({ name, label }) => {
+                const band = bands.find(b => b.name === name);
+                if (!band) return;
+
+                const elId = 'band-overlay-' + name;
+                let el = document.getElementById(elId);
+                if (!el) {
+                    el = document.createElement('div');
+                    el.id = elId;
+                    el.style.cssText = 'position:absolute;pointer-events:none;z-index:60;font-size:14px;font-weight:bold;color:#1d4ed8;background:#dbeafe;border:1.5px solid #3b82f6;border-radius:4px;padding:3px 10px;white-space:nowrap;transform:translateX(-50%);';
+                    el.textContent = label;
+                    document.getElementById('main-content').appendChild(el);
+                }
+
+                const xStart = myChart.convertToPixel({ xAxisIndex: 0 }, band.startDate);
+                const xEnd = myChart.convertToPixel({ xAxisIndex: 0 }, band.endDate);
+                if (xStart == null || xEnd == null) return;
+                const xCenter = (xStart + xEnd) / 2;
+                const gridTop = myChart.convertToPixel({ yAxisIndex: 1 }, 0);
+
+                el.style.left = xCenter + 'px';
+                el.style.top = (gridTop - 28) + 'px';
+            });
+        }
+
+        myChart.on('finished', updateBandOverlays);
+        window.addEventListener('resize', () => { myChart.resize(); closePopup(); updateBandOverlays(); });
         draw();
 
         const navSave = document.getElementById('nav-save');
